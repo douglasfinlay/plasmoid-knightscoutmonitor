@@ -1,0 +1,21 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=KNightscout Monitor
+Name[en_GB]=KNightscout Monitor
+Comment=Plasmoid for viewing Nightscout data
+Comment[en_GB]=Plasmoid for viewing Nightscout data
+
+Icon=applications-science
+Type=Service
+X-KDE-ServiceTypes=Plasma/Applet
+
+X-KDE-PluginInfo-Author=Douglas Finlay
+X-KDE-PluginInfo-Email=douglas@douglasfinlay.com
+X-KDE-PluginInfo-Name=com.github.dougfinl.knightscoutmonitor
+X-KDE-PluginInfo-Version=0.1
+X-KDE-PluginInfo-Website=https://github.com/dougfinl/plasmoid-knightscoutmonitor
+X-KDE-PluginInfo-Category=Utilities
+X-KDE-PluginInfo-License=GPLv3
+
+X-Plasma-API=declarativeappletscript
+X-Plasma-MainScript=ui/main.qml
