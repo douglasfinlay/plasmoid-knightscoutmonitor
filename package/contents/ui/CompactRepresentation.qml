@@ -11,6 +11,11 @@ Item {
     Layout.maximumWidth: Layout.minimumWidth + 8
     Layout.fillWidth: false
 
+    MouseArea {
+        anchors.fill: parent
+        onClicked: plasmoid.expanded = !plasmoid.expanded
+    }
+
     states: State {
         name: 'currentGlucoseInvalid'
         when: !root.currentGlucoseValid

@@ -14,9 +14,11 @@ Item {
     property string glucoseTrendArrow: ''
     property bool currentGlucoseValid: false
     property date currentGlucoseTimestamp: new Date(0)
+    property ListModel previousGlucoseReadings: ListModel {}
 
     Plasmoid.preferredRepresentation: Plasmoid.compactRepresentation
     Plasmoid.compactRepresentation: CompactRepresentation {}
+    Plasmoid.fullRepresentation: ChartView {}
 
     Component.onCompleted: {
         updateCurrentGlucoseText();
@@ -61,11 +63,26 @@ Item {
 
             glucoseUpdateTimeout.start();
 
-            var result = NS.getCurrentGlucose(plasmoid.configuration.nsURL, function(level, trend, epoch) {
+            NS.getCurrentReading(plasmoid.configuration.nsURL, function(level, trend, epoch) {
                 root.currentGlucoseMgdl = level;
                 root.glucoseTrendArrow = trend;
                 root.currentGlucoseTimestamp = new Date(epoch);
                 glucoseUpdateTimeout.stop();
+            });
+
+            var threeHoursAgo = new Date();
+            threeHoursAgo.setHours(threeHoursAgo.getHours() - 3);
+            NS.getReadingsSince(threeHoursAgo.getTime(), plasmoid.configuration.nsURL, function(results) {
+                root.previousGlucoseReadings.clear();
+
+                for (var i in results) {
+                    const result = results[i];
+                    var reading = {
+                        glucose: result.sgv,
+                        time: result.date / 1000
+                    };
+                    root.previousGlucoseReadings.append(reading);
+                }
             });
         }
     }
